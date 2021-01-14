@@ -12,9 +12,10 @@ class Vendas extends Model
     protected $useTimestamps    = false;
     protected $skipValidation   = true;
 
-    public function getLastest($dias)
+    public function getLastest($dias, $forma)
     {
         return $this->where('dataFinalizada BETWEEN CURDATE() - INTERVAL '.$dias.' DAY AND CURDATE()')
+                    ->where('formaPagamento', $forma)
                     ->findAll();
     }
 }

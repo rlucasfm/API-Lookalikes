@@ -14,8 +14,24 @@ class Vendas extends Model
 
     public function getLastest($dias, $forma)
     {
-        return $this->where('dataFinalizada BETWEEN CURDATE() - INTERVAL '.$dias.' DAY AND CURDATE()')
+        $cursos = ['CURSO DE APH - VERSÃO ONLINE','CURSO ONLINE DE APH 1.0','CURSO DE APH 80H'];
+        $status = ['Finalizada'];
+        return $this->distinct()
+                    ->where('dataFinalizada BETWEEN CURDATE() - INTERVAL '.$dias.' DAY AND CURDATE()')
                     ->where('formaPagamento', $forma)
+                    ->whereIn('nomeProduto',$cursos)
+                    ->whereIn('statusVenda',$status)                    
+                    ->findAll();
+    }
+
+    public function getTodos($dias)
+    {
+        $cursos = ['CURSO DE APH - VERSÃO ONLINE','CURSO ONLINE DE APH 1.0','CURSO DE APH 80H'];
+        $status = ['Finalizada'];
+        return $this->distinct()
+                    ->where('dataFinalizada BETWEEN CURDATE() - INTERVAL '.$dias.' DAY AND CURDATE()')                    
+                    ->whereIn('nomeProduto',$cursos)
+                    ->whereIn('statusVenda',$status)                    
                     ->findAll();
     }
 }

@@ -19,23 +19,54 @@ class Lookalike extends Controller
     {
         $vendasModel = new Vendas();
         $vendas = array_column($vendasModel->getLastest($dias, 'Boleto'), 'email');
+        $data = [
+            'titulo' => 'Boletos - Últimos '.$dias.' dias',
+            'vendas' => $vendas
+        ];
 
-        return $this->respond($vendas, 200);
+        echo view('viewAPI', $data);
+        //return $this->respond($vendas, 200);
     } 
     
     public function cartao($dias)
     {
         $vendasModel = new Vendas();
         $vendas = array_column($vendasModel->getLastest($dias, 'Cartão de crédito'), 'email');
+        $data = [
+            'titulo' => 'Cartão - Últimos '.$dias.' dias',
+            'vendas' => $vendas
+        ];
 
-        return $this->respond($vendas, 200);
+        echo view('viewAPI', $data);
+
+        //return $this->respond($vendas, 200);
     }  
     
     public function gratis($dias)
     {
         $vendasModel = new Vendas();
         $vendas = array_column($vendasModel->getLastest($dias, 'Grátis'), 'email');
+        $data = [
+            'titulo' => 'Grátis - Últimos '.$dias.' dias',
+            'vendas' => $vendas
+        ];
 
-        return $this->respond($vendas, 200);
+        echo view('viewAPI', $data);
+
+        //return $this->respond($vendas, 200);
+    } 
+
+    public function todos($dias)
+    {
+        $vendasModel = new Vendas();
+        $vendas = array_column($vendasModel->getTodos($dias), 'email');
+        $data = [
+            'titulo' => 'Grátis - Últimos '.$dias.' dias',
+            'vendas' => $vendas
+        ];
+
+        echo view('viewAPI', $data);
+
+        //return $this->respond($vendas, 200);
     } 
 }
